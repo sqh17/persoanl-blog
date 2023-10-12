@@ -1,41 +1,41 @@
 <template>
-  <div>
+  <div class="common">
+    <Header></Header>
     <index-animation></index-animation>
-    <div class="common">
-      <div class="home">
-        <p>{{ info.introduction }}</p>
-      </div>
+    <Footer :fixed="true"></Footer>
+    <div class="home">
+      <p>{{ info.introduction }}</p>
     </div>
   </div>
 </template>
 
-<script setup lang='ts'>
-import { ref,onMounted } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import IndexAnimation from '@/components/IndexAnimation/index.vue'
-
+import Header from '@/components/Header/index.vue'
+import Footer from '@/components/Footer/index.vue'
 const info = ref({
-  introduction: "",
-  introductionTarget: "There is a kind of call to eat together."
+  introduction: '',
+  introductionTarget: 'There is a kind of call to eat together.'
 })
-let i = 0;
-let timer: any = null;
+let i = 0
+let timer: any = null
 
 const typing = () => {
   if (i <= info.value.introductionTarget.length) {
-    info.value.introduction =
-      info.value.introductionTarget.slice(0, i++) + "_";
-    timer = setTimeout(typing, 100);
+    info.value.introduction = info.value.introductionTarget.slice(0, i++) + '_'
+    timer = setTimeout(typing, 100)
   } else {
-    info.value.introduction = info.value.introductionTarget; //结束打字,移除 _ 光标
-    clearTimeout(timer);
+    info.value.introduction = info.value.introductionTarget //结束打字,移除 _ 光标
+    clearTimeout(timer)
   }
 }
-onMounted(()=>{
+onMounted(() => {
   typing()
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .home {
   position: absolute;
   top: 50%;
@@ -46,19 +46,10 @@ onMounted(()=>{
   color: #fff;
   font-weight: 500;
 }
-.common {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  .right-box {
-    position: fixed;
-    top: 80px;
-    left: 70px;
-    z-index: 3;
-  }
+.right-box {
+  position: fixed;
+  top: 80px;
+  left: 70px;
+  z-index: 3;
 }
 </style>
