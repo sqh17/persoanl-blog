@@ -1,11 +1,11 @@
 <template>
   <canvas class="index-canvas" ref="canvasDom">Canvas not supported.</canvas>
 </template>
-<script setup>
-import { index_fullScreenAnimation } from "@/utils/animate.js";
-import {onMounted,ref} from 'vue'
+<script setup lang="ts">
+import { index_fullScreenAnimation } from '@/utils/animate.js'
+import { onMounted, ref } from 'vue'
 const canvasDom = ref(null)
-onMounted(()=>{
+onMounted(() => {
   index_fullScreenAnimation(canvasDom.value)
 })
 </script>
