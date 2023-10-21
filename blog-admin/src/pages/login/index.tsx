@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
-import Footer from '@/components/Footer';
-import Logo from '@/assets/logo.svg';
+import Footer from '../../components/Footer';
 import LoginForm from './form';
 import LoginBanner from './banner';
+import Logo from '../../assets/logo.svg';
+
 import styles from './style/index.module.less';
 
-function Login() {
+export default () => {
   useEffect(() => {
     document.body.setAttribute('arco-theme', 'light');
   }, []);
-
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
         <Logo />
-        <div className={styles['logo-text']}>Arco Design Pro</div>
+        <div className={styles['logo-text']}>博客后台管理系统</div>
       </div>
       <div className={styles.banner}>
         <div className={styles['banner-inner']}>
@@ -31,7 +31,4 @@ function Login() {
       </div>
     </div>
   );
-}
-Login.displayName = 'LoginPage';
-
-export default Login;
+};
