@@ -15,6 +15,7 @@ import {
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import dayjs from 'dayjs';
 import {
   UPDATE_FORM_PARAMS,
   UPDATE_LIST,
@@ -26,7 +27,6 @@ import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, remove, updateCommentStatus } from '../../api/comment';
 import { auditStatusOptions } from '../../const';
-import dayjs from 'dayjs';
 
 function Categories() {
   const locale = useLocale();

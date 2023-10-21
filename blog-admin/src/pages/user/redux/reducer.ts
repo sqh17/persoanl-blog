@@ -25,7 +25,7 @@ export interface UserState {
   loading?: boolean;
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case UPDATE_LIST: {
       const { data } = action.payload;
@@ -56,7 +56,6 @@ export default function (state = initialState, action) {
         formParams: params,
       };
     }
-
 
     default:
       return state;

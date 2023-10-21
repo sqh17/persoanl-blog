@@ -13,6 +13,7 @@ import {
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconCheck, IconClose } from '@arco-design/web-react/icon';
+import dayjs from 'dayjs';
 import {
   TOGGLE_CONFIRM_LOADING,
   TOGGLE_VISIBLE,
@@ -26,7 +27,6 @@ import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, create, update, remove, updateStatus } from '../../api/tags';
 import { EditableCell, EditableRow } from './edit';
-import dayjs from 'dayjs';
 
 const FormItem = Form.Item;
 

@@ -1,4 +1,3 @@
-
 export const colors = [
   'red',
   'orangered',
@@ -15,27 +14,26 @@ export const colors = [
   'gray',
 ];
 
-export const imagesType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
-
+export const imagesType = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
 export const auditStatusOptions = [
   {
     value: 0,
-    label: '全部'
+    label: '全部',
   },
   {
     value: 1,
-    label: '通过'
-  }, {
+    label: '通过',
+  },
+  {
     value: 2,
-    label: '驳回'
-  }
-  , {
+    label: '驳回',
+  },
+  {
     value: 3,
-    label: '未审核'
-  }
-]
-
+    label: '未审核',
+  },
+];
 
 export const showPositions = [
   '首页',
@@ -46,9 +44,8 @@ export const showPositions = [
   '分类详情',
   '标签',
   '标签详情',
-  '关于'
-]
-
+  '关于',
+];
 
 export const showPositionsColorObj = {
   首页: 'blue',
@@ -81,17 +78,19 @@ export const statusOptions = [
   {
     key: '1',
     value: '启用',
-  }, {
+  },
+  {
     key: '2',
     value: '停用',
-  }
-]
+  },
+];
 export const publishStatusOptions = [
   {
     key: '1',
     value: '已发布',
-  }, {
+  },
+  {
     key: '2',
     value: '未发布',
-  }
-]
+  },
+];

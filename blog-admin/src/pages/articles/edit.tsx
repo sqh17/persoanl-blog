@@ -10,18 +10,19 @@ import {
   Select,
   InputNumber,
 } from '@arco-design/web-react';
+import Editor from 'for-editor';
+import { useLocation } from 'react-router-dom';
 import styles from './style/index.module.less';
 import Save from '../../components/Save';
 import UploadImage from '../../components/UploadImage';
 import { queryArticles, create, update } from '../../api/articles';
 import { getList as getCategoriesList } from '../../api/categories';
 import { getList as getTagsList } from '../../api/tags';
-import Editor from 'for-editor';
-const Row = Grid.Row;
-const Col = Grid.Col;
 import { upload } from '../../api/common';
 import history from '../../history';
-import { useLocation } from 'react-router-dom';
+
+const Row = Grid.Row;
+const Col = Grid.Col;
 const layout = {
   labelCol: {
     span: 2,
@@ -128,7 +129,7 @@ const Edit = () => {
     if (id) {
       values.id = id;
     }
-    let func = id ? update : create;
+    const func = id ? update : create;
     const res: any = await func(values);
     if (res.code === 0) {
       history.goBack();

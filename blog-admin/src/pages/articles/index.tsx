@@ -18,6 +18,7 @@ import {
   Radio,
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
+import dayjs from 'dayjs';
 import history from '../../history';
 
 import {
@@ -36,7 +37,6 @@ import {
   updateCollectStatus,
 } from '../../api/articles';
 import { publishStatusOptions, statusOptions } from '../../const';
-import dayjs from 'dayjs';
 import { getList as getTagsList } from '../../api/tags';
 import { getList as getCategoriesList } from '../../api/categories';
 
@@ -97,7 +97,7 @@ function Articles() {
 
   // 查看
   const onView = (record) => {
-    history.push('/articles/edit?id=' + record._id);
+    history.push(`/articles/edit?id=${record._id}`);
   };
 
   // 文章状态修改
@@ -143,7 +143,7 @@ function Articles() {
       title: '标签',
       dataIndex: 'tags',
       render: (_, record) => {
-        let result = [];
+        const result = [];
         for (let i = 0; i < record.tags.length; i += 3) {
           result.push(record.tags.slice(i, i + 3)); // i=0 0-3 i=3 3-6
         }
@@ -364,7 +364,7 @@ function Articles() {
               name="lang"
               style={{ marginLeft: 20 }}
             >
-              <Radio value={true}>一键开启收藏</Radio>
+              <Radio value>一键开启收藏</Radio>
               <Radio value={false}>一键关闭收藏</Radio>
             </Radio.Group>
           </div>

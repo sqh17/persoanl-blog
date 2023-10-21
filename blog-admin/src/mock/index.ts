@@ -13,7 +13,7 @@ import '../pages/site/home/mock';
 import '../pages/site/headerFooter/mock';
 import '../pages/site/right/mock';
 
-console.log('process',process.env.NODE_ENV)
+console.log('process', process.env.NODE_ENV);
 Mock.setup({
   timeout: '200-600',
 });

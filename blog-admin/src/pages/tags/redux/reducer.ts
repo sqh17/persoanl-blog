@@ -1,5 +1,12 @@
 import { PaginationProps } from '@arco-design/web-react/es/Pagination/pagination';
-import { UPDATE_LIST, UPDATE_LOADING, UPDATE_PAGINATION, UPDATE_FORM_PARAMS, TOGGLE_VISIBLE, TOGGLE_CONFIRM_LOADING } from './actionTypes';
+import {
+  UPDATE_LIST,
+  UPDATE_LOADING,
+  UPDATE_PAGINATION,
+  UPDATE_FORM_PARAMS,
+  TOGGLE_VISIBLE,
+  TOGGLE_CONFIRM_LOADING,
+} from './actionTypes';
 
 const initialState = {
   data: [],
@@ -25,11 +32,11 @@ export interface TagsState {
   pagination?: PaginationProps;
   formParams?: FormParams;
   loading?: boolean;
-  visible?: boolean,
-  confirmLoading?: boolean,
+  visible?: boolean;
+  confirmLoading?: boolean;
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case UPDATE_LIST: {
       const { data } = action.payload;
@@ -64,18 +71,17 @@ export default function (state = initialState, action) {
       const { visible } = action.payload;
       return {
         ...state,
-        visible
-      }
+        visible,
+      };
     }
 
     case TOGGLE_CONFIRM_LOADING: {
       const { confirmLoading } = action.payload;
       return {
         ...state,
-        confirmLoading
-      }
+        confirmLoading,
+      };
     }
-
 
     default:
       return state;

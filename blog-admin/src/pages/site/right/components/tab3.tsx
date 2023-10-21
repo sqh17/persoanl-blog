@@ -17,6 +17,8 @@ import {
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconLink } from '@arco-design/web-react/icon';
+import dayjs from 'dayjs';
+import copy from 'copy-to-clipboard';
 import {
   TOGGLE_CONFIRM_LOADING,
   TOGGLE_VISIBLE,
@@ -35,8 +37,6 @@ import {
   removeRecommend,
 } from '../../../../api/site/right';
 import { projects, showPositions, showPositionsColorObj } from '../../../../const';
-import dayjs from 'dayjs';
-import copy from 'copy-to-clipboard';
 import UploadImage from '../../../../components/UploadImage';
 
 const formItemLayout = {
@@ -72,7 +72,7 @@ function Tab3() {
           3: '#52c41a',
         };
         const text = projects[+record.project - 1].value;
-        return <Badge dotStyle={{ background: colorObj[record.project] }} text={text}></Badge>;
+        return <Badge dotStyle={{ background: colorObj[record.project] }} text={text} />;
       },
     },
     {
@@ -114,7 +114,7 @@ function Tab3() {
       title: '展示位置',
       dataIndex: 'showPosition',
       render: (_, record) => {
-        let result = [];
+        const result = [];
         for (let i = 0; i < record.showPosition.length; i += 3) {
           result.push(record.showPosition.slice(i, i + 3)); // i=0 0-3 i=3 3-6
         }
@@ -388,7 +388,7 @@ function Tab3() {
 
             <Form.Item label="是否需要VIP" field="isVip">
               <Radio.Group>
-                <Radio value={true}>是</Radio>
+                <Radio value>是</Radio>
                 <Radio value={false}>否</Radio>
               </Radio.Group>
             </Form.Item>

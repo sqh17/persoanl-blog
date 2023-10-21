@@ -11,7 +11,7 @@ const UploadImage = (props) => {
     showIcon = false,
     showAction = true,
   } = props;
-  interface IImage {
+  interface Iimage {
     _id?: string;
     imgUrl?: string;
     link?: string;
@@ -20,7 +20,7 @@ const UploadImage = (props) => {
     showReduce?: boolean;
   }
 
-  const initImgs: Array<IImage> = [
+  const initImgs: Array<Iimage> = [
     {
       _id: '',
       imgUrl: '',
@@ -30,9 +30,7 @@ const UploadImage = (props) => {
   ];
 
   const [imgsArr, setImgsArr] = useState(() => {
-    console.log('value', value);
-
-    return value ? value : initImgs;
+    return value || initImgs;
   });
 
   useEffect(() => {
@@ -43,10 +41,10 @@ const UploadImage = (props) => {
       value.map((item, idx) => {
         if (length < max) {
           // 1 < 3
-          item.showReduce = length != 1;
+          item.showReduce = length !== 1;
           item.showAdd = length - 1 === idx;
         } else {
-          item.showReduce = true; //可以删除
+          item.showReduce = true; // 可以删除
           item.showAdd = false;
         }
       });

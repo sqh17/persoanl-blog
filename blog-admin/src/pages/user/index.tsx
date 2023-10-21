@@ -39,7 +39,7 @@ function Categories() {
       dataIndex: 'avatar',
       width: 60,
       render: (_, record) => {
-        return <Image width={50} height={50} src={record.avatar}></Image>;
+        return <Image width={50} height={50} src={record.avatar} />;
       },
     },
     {

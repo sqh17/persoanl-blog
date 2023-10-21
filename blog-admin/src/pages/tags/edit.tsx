@@ -1,6 +1,7 @@
 import React, { useRef, useContext, useState, useCallback, useEffect } from 'react';
 import { Form, Input, Message } from '@arco-design/web-react';
 import styles from './style/index.module.less';
+
 const EditableContext = React.createContext({ getForm: null });
 
 export const EditableRow = (props) => {
@@ -14,14 +15,13 @@ export const EditableRow = (props) => {
         style={{ display: 'table-row' }}
         children={children}
         ref={refForm}
-        wrapper='tr'
+        wrapper="tr"
         wrapperProps={rest}
         className={`${className} ${styles['editable-row']}`}
       />
     </EditableContext.Provider>
   );
-}
-
+};
 
 export const EditableCell = (props) => {
   const { children, className, rowData, column, onHandleSave } = props;
@@ -83,7 +83,7 @@ export const EditableCell = (props) => {
           rules={[
             {
               required: true,
-              message:'请输入分类名称'
+              message: '请输入分类名称',
             },
           ]}
         >
@@ -98,10 +98,9 @@ export const EditableCell = (props) => {
       if (rowData.articleNum > 0) {
         return Message.warning('该分类下有文章不能修改！');
       }
-      setEditing(!editing)
+      setEditing(!editing);
     }
-    
-  }
+  };
 
   return (
     <div
@@ -111,4 +110,4 @@ export const EditableCell = (props) => {
       {children}
     </div>
   );
-}
+};
