@@ -23,20 +23,22 @@ setupMock({
       switch (params.type) {
         case 'PUT':
           const body = JSON.parse(params.body);
-          console.log('body', body);
-
           const index = data.list.findIndex((item) => item._id === body.id);
           data.list[index] = { ...data.list[index], ...body };
           return {
-            msg: '标签修改成功',
+            msg: '标签状态修改成功',
             data: null,
             code: 0,
+          };
+        default:
+          return {
+            msg: '未知错误',
+            data: null,
+            code: 500,
           };
       }
     });
     Mock.mock(new RegExp('/api/v1/tags'), (params) => {
-      console.log('---', params);
-
       switch (params.type) {
         case 'DELETE':
           const delBody = JSON.parse(params.body);
@@ -82,6 +84,7 @@ setupMock({
           return {
             list: data.list.slice((p - 1) * ps, p * ps),
             totalCount: 55,
+            code: 0,
           };
       }
     });

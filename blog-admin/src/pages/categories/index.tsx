@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Table,
   Button,
@@ -29,6 +29,7 @@ import AddModal from './addModal';
 function Categories() {
   const locale = useLocale();
   const dispatch = useDispatch();
+  const [title, setTitle] = useState('添加分类');
   const columns = [
     {
       title: '分类名称',
@@ -63,9 +64,9 @@ function Categories() {
       dataIndex: 'operations',
       render: (_, record) => (
         <div className={styles.operations}>
-          {/* <Button type="text" size="small" onClick={() => onfocus()}>
+          <Button type="text" size="small" onClick={() => onUpdate(record)}>
             {locale['searchTable.columns.operations.update']}
-          </Button> */}
+          </Button>
           <Popconfirm title="Are you sure you want to delete?" onOk={() => onDelete(record)}>
             <Button type="text" status="danger" size="small">
               {locale['searchTable.columns.operations.delete']}
@@ -111,6 +112,16 @@ function Categories() {
   function onSearch(name) {
     fetchData(1, pagination.pageSize, { name });
   }
+  function onUpdate(row) {
+    dispatch({
+      type: TOGGLE_VISIBLE,
+      payload: {
+        visible: true,
+      },
+    });
+    setTitle('修改分类');
+    modalRef.current.form.setFieldsValue(row);
+  }
   const onAdd = () => {
     dispatch({
       type: TOGGLE_VISIBLE,
@@ -137,7 +148,11 @@ function Categories() {
         confirmLoading: true,
       },
     });
-    const res: any = await create(data);
+    let func = create;
+    if (data._id) {
+      func = update;
+    }
+    const res: any = await func(data);
     if (res.code === 0) {
       dispatch({
         type: TOGGLE_CONFIRM_LOADING,
@@ -225,6 +240,7 @@ function Categories() {
         visible={visible}
         onOk={onOk}
         onCancel={onCancel}
+        title={title}
       />
     </div>
   );

@@ -10,6 +10,7 @@ import {
   Message,
   Popconfirm,
   Switch,
+  Tooltip,
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconCheck, IconClose } from '@arco-design/web-react/icon';
@@ -60,12 +61,14 @@ function Tags() {
       dataIndex: 'status',
       render: (_, record: any) => {
         return (
-          <Switch
-            checkedIcon={<IconCheck />}
-            uncheckedIcon={<IconClose />}
-            checked={record.status}
-            onChange={(checked) => onStatusChange(checked, record)}
-          />
+          <Tooltip content="启用状态下禁止右侧操作">
+            <Switch
+              checkedIcon={<IconCheck />}
+              uncheckedIcon={<IconClose />}
+              checked={record.status}
+              onChange={(checked) => onStatusChange(checked, record)}
+            />
+          </Tooltip>
         );
       },
     },
@@ -74,7 +77,7 @@ function Tags() {
       dataIndex: 'createTime',
       render: (_, record) => {
         return record.createTime
-          ? dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss')
+          ? dayjs(new Date(record.createTime)).format('YYYY-MM-DD HH:mm:ss')
           : '-';
       },
     },
@@ -83,7 +86,7 @@ function Tags() {
       dataIndex: 'updateTime',
       render: (_, record) => {
         return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
+          ? dayjs(new Date(record.updateTime)).format('YYYY-MM-DD HH:mm:ss')
           : '-';
       },
     },
@@ -131,14 +134,12 @@ function Tags() {
         pageSize,
         ...params,
       };
-      console.log(postData);
       const res: any = await getList(postData);
-      console.log(res);
       if (res.code === 0) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
@@ -183,8 +184,7 @@ function Tags() {
   };
   const onOk = async () => {
     await form.validate();
-    const data = form.getFields(); // {name:'123'}
-    console.log('data', data);
+    const data = form.getFields();
     let func = create;
     if (data._id) {
       func = update;

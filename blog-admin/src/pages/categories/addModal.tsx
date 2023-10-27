@@ -13,7 +13,7 @@ const formItemLayout = {
 };
 function AddModal(props, ref) {
   const [form] = Form.useForm();
-  const { visible, onOk, onCancel, confirmLoading } = props;
+  const { visible, onOk, onCancel, confirmLoading, title } = props;
   useImperativeHandle(
     ref,
     () => {
@@ -26,7 +26,7 @@ function AddModal(props, ref) {
   return (
     <div>
       <Modal
-        title={<div style={{ textAlign: 'left' }}> 添加分类 </div>}
+        title={<div style={{ textAlign: 'left' }}> {title} </div>}
         visible={visible}
         onOk={onOk}
         confirmLoading={confirmLoading}
