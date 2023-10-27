@@ -5,7 +5,6 @@ import {
   Input,
   Breadcrumb,
   Card,
-  Form,
   Message,
   Popconfirm,
 } from '@arco-design/web-react';
@@ -64,9 +63,9 @@ function Categories() {
       dataIndex: 'operations',
       render: (_, record) => (
         <div className={styles.operations}>
-          <Button type="text" size="small">
+          {/* <Button type="text" size="small" onClick={() => onfocus()}>
             {locale['searchTable.columns.operations.update']}
-          </Button>
+          </Button> */}
           <Popconfirm title="Are you sure you want to delete?" onOk={() => onDelete(record)}>
             <Button type="text" status="danger" size="small">
               {locale['searchTable.columns.operations.delete']}
@@ -94,7 +93,6 @@ function Categories() {
         ...params,
       };
       const res: any = await getList(postData);
-      console.log('res', res);
       if (res) {
         dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
         dispatch({
@@ -106,12 +104,10 @@ function Categories() {
       }
     } catch (error) {}
   }
-
   function onChangeTable(pagination) {
     const { current, pageSize } = pagination;
     fetchData(current, pageSize, formParams);
   }
-
   function onSearch(name) {
     fetchData(1, pagination.pageSize, { name });
   }
@@ -130,7 +126,6 @@ function Categories() {
         visible: false,
       },
     });
-    console.log('modalRef', modalRef.current);
     modalRef.current.form.resetFields();
   };
   const onOk = async () => {
@@ -167,7 +162,6 @@ function Categories() {
       Message.error('修改失败，请重试！');
     }
   };
-
   const onDelete = async (row) => {
     const res: any = await remove(row);
     if (res.code === 0) {

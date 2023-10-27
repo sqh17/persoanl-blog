@@ -100,68 +100,93 @@ const Item = (props) => {
 
   const uploadButton = (
     <div className="arco-upload-trigger-picture">
-      <div className='arco-upload-trigger-picture-text'>
-        {loading ? <Spin /> : <IconPlus />}
-      </div>
+      <div className="arco-upload-trigger-picture-text">{loading ? <Spin /> : <IconPlus />}</div>
     </div>
   );
 
   return (
     <div className={styles.item}>
       <div className={styles['item-content']}>
-        {
-          showImg && <div className={styles['upload-wrapper']}>
+        {showImg && (
+          <div className={styles['upload-wrapper']}>
             <Upload
               showUploadList={false}
               name="file"
               listType="picture-card"
               beforeUpload={beforeUpload}
             >
-              {
-                imageUrl ? (<div className='arco-upload-list-item-picture custom-upload-avatar'>
+              {imageUrl ? (
+                <div className="arco-upload-list-item-picture custom-upload-avatar">
                   <img src={imageUrl} />
-                  <div className='arco-upload-list-item-picture-mask'>
+                  <div className="arco-upload-list-item-picture-mask">
                     <IconEdit />
                   </div>
-                </div>) : (uploadButton)}
+                </div>
+              ) : (
+                uploadButton
+              )}
             </Upload>
-            <Button className={styles['btn-input']} onClick={() => setVisible(true)} type="primary">输入链接</Button>
+            <Button className={styles['btn-input']} onClick={() => setVisible(true)} type="primary">
+              输入链接
+            </Button>
           </div>
         )}
 
         <div>
-          {
-            showLink && <Input onChange={handleChangeLink} value={link} className={styles.input} addBefore='链接' />
+          {showLink && (
+            <Input
+              onChange={handleChangeLink}
+              value={link}
+              className={styles.input}
+              addBefore="链接"
+            />
           )}
-          {
-            showIcon && <Input onChange={handleChangeIcon} value={icon} className={styles.input} addBefore='图标' />
+          {showIcon && (
+            <Input
+              onChange={handleChangeIcon}
+              value={icon}
+              className={styles.input}
+              addBefore="图标"
+            />
           )}
         </div>
 
-        {
-          showAction && <div className={styles.action}>
-            {
-              showReduce && <Button icon={<IconDelete />} status="danger" shape='circle' className={styles.btn} onClick={() => onRemove(index)}></Button>
+        {showAction && (
+          <div className={styles.action}>
+            {showReduce && (
+              <Button
+                icon={<IconDelete />}
+                status="danger"
+                shape="circle"
+                className={styles.btn}
+                onClick={() => onRemove(index)}
+              />
             )}
-            {
-              showAdd && <Button icon={<IconPlus />} type="primary" shape='circle' className={styles.btn} onClick={onAdd} />
+            {showAdd && (
+              <Button
+                icon={<IconPlus />}
+                type="primary"
+                shape="circle"
+                className={styles.btn}
+                onClick={onAdd}
+              />
             )}
           </div>
         )}
 
         <Modal
-          title={(
-            <div style={{ textAlign: 'left' }}>图片链接 </div>
-          )}
+          title={<div style={{ textAlign: 'left' }}>图片链接 </div>}
           visible={visible}
           onOk={onOk}
           onCancel={onCancel}
         >
-          <Form
-            form={form}
-          >
-            <Form.Item label='图片链接' field='imgUrl' rules={[{ required: true, message: '请输入图片链接' }]}>
-              <Input placeholder='请输入图片链接' />
+          <Form form={form}>
+            <Form.Item
+              label="图片链接"
+              field="imgUrl"
+              rules={[{ required: true, message: '请输入图片链接' }]}
+            >
+              <Input placeholder="请输入图片链接" />
             </Form.Item>
           </Form>
         </Modal>

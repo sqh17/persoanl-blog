@@ -5,7 +5,7 @@ import styles from './style/index.module.less';
 const EditableContext = React.createContext({ getForm: null });
 
 export const EditableRow = (props) => {
-  const { children, record, className, ...rest } = props;
+  const { children, className, ...rest } = props;
   const refForm = useRef(null);
   const getForm = () => refForm.current;
 
@@ -25,12 +25,20 @@ export const EditableRow = (props) => {
 
 export const EditableCell = (props) => {
   const { children, className, rowData, column, onHandleSave } = props;
-
   const ref = useRef(null);
   const refInput = useRef(null);
   const { getForm } = useContext(EditableContext);
   const [editing, setEditing] = useState(false);
-
+  const cellValueChangeHandler = () => {
+    const form = getForm();
+    form.validate([column.dataIndex], (errors, values) => {
+      if (!errors || !errors[column.dataIndex]) {
+        setEditing(!editing);
+        if (rowData.name === values.name) return;
+        onHandleSave && onHandleSave({ ...rowData, ...values });
+      }
+    });
+  };
   const handleClick = useCallback(
     (e) => {
       if (
@@ -56,17 +64,6 @@ export const EditableCell = (props) => {
       document.removeEventListener('click', handleClick, true);
     };
   }, [handleClick]);
-
-  const cellValueChangeHandler = () => {
-    const form = getForm();
-    form.validate([column.dataIndex], (errors, values) => {
-      if (!errors || !errors[column.dataIndex]) {
-        setEditing(!editing);
-        onHandleSave && onHandleSave({ ...rowData, ...values });
-      }
-    });
-  };
-
   if (editing) {
     return (
       <div ref={ref}>

@@ -21,6 +21,7 @@ const initialState = {
   formParams: {},
   visible: false,
   confirmLoading: false,
+  itemFocus: false,
 };
 
 interface FormParams {
@@ -34,10 +35,19 @@ export interface CategoriesState {
   loading?: boolean;
   visible?: boolean;
   confirmLoading?: boolean;
+  itemFocus?: boolean;
 }
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case 'focus_item': {
+      const { itemFocus } = action.payload;
+
+      return {
+        ...state,
+        itemFocus,
+      };
+    }
     case UPDATE_LIST: {
       const { data } = action.payload;
 

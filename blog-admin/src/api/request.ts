@@ -12,7 +12,9 @@ export const request = (config) => {
     (config) => {
       if (config.method === 'put' || config.method === 'delete') {
         const id = config.data._id || config.data.id;
-        config.url += `/${id}`;
+        if (id) {
+          config.url += `/${id}`;
+        }
       }
       const token = localStorage.getItem('token');
       config.headers = {
