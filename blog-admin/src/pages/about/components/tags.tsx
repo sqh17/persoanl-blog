@@ -9,8 +9,6 @@ const Tags = (props) => {
   const [tags, setTags] = useState(props.value || []);
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  // ['vue','react']
-  // [{name:'vue',color:'red'},{name:'react',color:'blue'}]
   const init = (arr) => {
     const newArr = arr?.map((item) => {
       return {
@@ -24,11 +22,14 @@ const Tags = (props) => {
     init(props.value);
   }, [props.value === undefined]);
 
+  type ItemType = {
+    name: string;
+    color: string;
+  };
   function addTag() {
     const removeRepeat = (arr) => {
-      const map: any = new Map();
+      const map: Map<string, ItemType> = new Map();
       for (const item of arr) {
-        console.log(item); // {name:'vue',color:'red'}
         if (!map.has(item.name)) {
           map.set(item.name, item);
         }
@@ -37,6 +38,10 @@ const Tags = (props) => {
     };
 
     if (inputValue) {
+      // if (tags.some((it) => it.name === inputValue)) {
+      //   Message.error('标签重复');
+      //   return;
+      // }
       let newTags = tags;
       tags.push({
         name: inputValue,
@@ -52,15 +57,11 @@ const Tags = (props) => {
   }
 
   function removeTag(removeTag) {
-    console.log('removeTag', removeTag);
-    console.log('tags', tags);
-
     const newTags = tags.filter((tag) => {
       if (tag.name !== removeTag) {
         return tag;
       }
     });
-    console.log('newTags', newTags);
     setTags(newTags);
     props.onChange && props.onChange(newTags.map((item) => item.name));
   }

@@ -20,7 +20,8 @@
     "outDir": "es",
     "lib": ["es5", "dom"],
     "types": ["node", "jest"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
