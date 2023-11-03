@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
+// import { Button } from '@arco-design/web-react';
+// import { IconPlus } from '@arco-design/web-react/icon';
 import Item from './item';
 
+// import styles from './item.module.less';
+
+interface Iimage {
+  _id?: string;
+  imgUrl?: string;
+  link?: string;
+  icon?: string;
+  showAdd?: boolean;
+  showReduce?: boolean;
+}
 const UploadImage = (props) => {
   const {
     value,
@@ -11,14 +23,6 @@ const UploadImage = (props) => {
     showIcon = false,
     showAction = true,
   } = props;
-  interface Iimage {
-    _id?: string;
-    imgUrl?: string;
-    link?: string;
-    icon?: string;
-    showAdd?: boolean;
-    showReduce?: boolean;
-  }
 
   const initImgs: Array<Iimage> = [
     {
@@ -34,7 +38,8 @@ const UploadImage = (props) => {
   });
 
   useEffect(() => {
-    if (!value) {
+    // 处理空数组的情况
+    if (!value || value.length === 0) {
       setImgsArr(initImgs);
     } else {
       const length = value.length;
@@ -98,6 +103,18 @@ const UploadImage = (props) => {
           />
         );
       })}
+      {/* {imgsArr.length < 3 && (
+        <div className={styles['add-btn-wrapper']}>
+          <Button
+            icon={<IconPlus />}
+            type="primary"
+            className={(styles.btn, styles.addBtn)}
+            onClick={onAdd}
+          >
+            添加
+          </Button>
+        </div>
+      )} */}
     </>
   );
 };

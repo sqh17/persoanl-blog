@@ -34,10 +34,12 @@ const Item = (props) => {
       imgUrl,
     });
   }, [imgUrl]);
+  // 图片弹窗取消
   const onCancel = () => {
     form.resetFields();
     setVisible(false);
   };
+  // 图片弹窗确认
   const onOk = async () => {
     await form.validate();
     const values = await form.getFields();
@@ -49,21 +51,14 @@ const Item = (props) => {
     onCancel();
   };
 
-  const handleChangeLink = (value) => {
+  const handleChange = (name, value) => {
     onChange({
       index,
-      field: 'link',
+      field: name,
       value,
     });
   };
-  const handleChangeIcon = (value) => {
-    onChange({
-      index,
-      field: 'icon',
-      value,
-    });
-  };
-
+  // 上传图片
   const beforeUpload = async (file) => {
     const isImage = imagesType.includes(file.type);
     if (!isImage) {
@@ -97,7 +92,7 @@ const Item = (props) => {
     }
     return false;
   };
-
+  // 自带的图片loading
   const uploadButton = (
     <div className="arco-upload-trigger-picture">
       <div className="arco-upload-trigger-picture-text">{loading ? <Spin /> : <IconPlus />}</div>
@@ -135,7 +130,7 @@ const Item = (props) => {
         <div>
           {showLink && (
             <Input
-              onChange={handleChangeLink}
+              onChange={(e) => handleChange('link', e)}
               value={link}
               className={styles.input}
               addBefore="链接"
@@ -143,7 +138,7 @@ const Item = (props) => {
           )}
           {showIcon && (
             <Input
-              onChange={handleChangeIcon}
+              onChange={(e) => handleChange('icon', e)}
               value={icon}
               className={styles.input}
               addBefore="图标"

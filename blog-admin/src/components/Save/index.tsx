@@ -12,9 +12,11 @@ const Save = (props) => {
   const message = time
     ? `上次保存时间：${dayjs(time * 1000).format('YYYY-MM-DD HH:mm:ss')}`
     : '暂无操作';
+  // 当没有声明onback函数时直接使用默认
   const goBack = () => {
     history.goBack();
   };
+  // 处理底部的左边覆盖问题
   const { collapsed, settings } = useSelector((state: ReducerState) => state.global);
 
   const width = collapsed ? `calc(100% - 48px)` : `calc(100% - ${settings.menuWidth}px)`;

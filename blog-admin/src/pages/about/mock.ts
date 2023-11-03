@@ -20,12 +20,13 @@ const data = {
       imgUrl: 'https://xuwenliu.github.io/img/archive.jpg',
       link: '',
     },
-    {
-      _id: '619afbcc569543592bdb5da4',
-      imgUrl: 'http://nevergiveupt.top/tags.jpg',
-      link: '',
-    },
+    // {
+    //   _id: '619afbcc569543592bdb5da4',
+    //   imgUrl: 'http://nevergiveupt.top/tags.jpg',
+    //   link: '',
+    // },
   ],
+  // imgs: [],
 };
 
 setupMock({

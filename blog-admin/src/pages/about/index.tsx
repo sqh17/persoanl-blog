@@ -63,7 +63,7 @@ const About = () => {
       <Save time={time} onRefresh={onRefresh} onSave={onSave} />
 
       <div className={styles.container}>
-        <Breadcrumb style={{ marginBottom: 20 }}>
+        <Breadcrumb style={{ marginBottom: 12 }}>
           <Breadcrumb.Item>关于管理</Breadcrumb.Item>
         </Breadcrumb>
         <Card hoverable>
