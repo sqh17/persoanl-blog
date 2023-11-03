@@ -1,7 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
-
+const userConfig = require('./config.user');
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -18,22 +18,24 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
-  // add your user config here
-  const userConfig = {
-    // myAppName: 'egg',
-  };
   config.view = {
     defaultViewEngine: 'nunjucks',
     mapping: {
       '.tpl': 'nunjucks',
     },
   };
-  config.news = {
-    pageSize: 5,
-    serverUrl: 'https://hacker-news.firebaseio.com/v0',
-  };
+  // anquan
   config.security = {
     csrf: false,
+  };
+  // mongoose
+  config.mongoose = {
+    url: 'mongodb://127.0.0.1/blog',
+    options: {},
+  };
+
+  config.jwt = {
+    secret: userConfig.userName,
   };
   return {
     ...config,
