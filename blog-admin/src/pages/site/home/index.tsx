@@ -11,7 +11,7 @@ const Col = Grid.Col;
 const About = () => {
   const [form] = Form.useForm();
   const [resetLength, setResetLength] = useState(800);
-  const [showTip, setShowTip] = useState(false);
+  const [showTip, setShowTip] = useState(true);
   const [time, setTime] = useState();
 
   const loadData = async (isRefresh?: boolean) => {
@@ -68,7 +68,6 @@ const About = () => {
   const onSave = async () => {
     await form.validate();
     const values = await form.getFields();
-    console.log(values);
     const postData = {
       ...values,
       archiveBgImg: values.archiveBgImg[0].imgUrl,
@@ -79,7 +78,6 @@ const About = () => {
       aboutBgImg: values.aboutBgImg[0].imgUrl,
     };
 
-    console.log('postData', postData);
     const func = values._id ? updateHome : addHome;
     const res: any = await func(postData);
     if (res.data) {
@@ -90,15 +88,15 @@ const About = () => {
     }
   };
 
-  const onChangeDesc = (value) => {
+  function onChangeDesc(value) {
     setResetLength(800 - value.length);
-  };
+  }
   return (
     <>
       <Save time={time} onRefresh={onRefresh} onSave={onSave} />
 
       <div className={styles.container}>
-        <Breadcrumb style={{ marginBottom: 20 }}>
+        <Breadcrumb style={{ marginBottom: 12 }}>
           <Breadcrumb.Item>首页配置</Breadcrumb.Item>
         </Breadcrumb>
         <Card hoverable>
@@ -180,6 +178,7 @@ const About = () => {
                   ]}
                 >
                   <Input.TextArea
+                    style={{ resize: 'none' }}
                     onFocus={() => setShowTip(true)}
                     onBlur={() => setShowTip(false)}
                     rows={5}
@@ -189,7 +188,9 @@ const About = () => {
                 {showTip && (
                   <div className={styles['desc-tip']}>
                     还可以输入
-                    <Link status="error">{resetLength}</Link>
+                    <Link className={styles['lh-20']} status="error">
+                      {resetLength}
+                    </Link>
                     个字符
                   </div>
                 )}
