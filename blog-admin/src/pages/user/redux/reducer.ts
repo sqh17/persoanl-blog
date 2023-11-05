@@ -27,6 +27,7 @@ export interface UserState {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    // 列表
     case UPDATE_LIST: {
       const { data } = action.payload;
 
@@ -35,6 +36,7 @@ export default function(state = initialState, action) {
         data,
       };
     }
+    // loading
     case UPDATE_LOADING: {
       const { loading } = action.payload;
       return {
@@ -42,6 +44,7 @@ export default function(state = initialState, action) {
         loading,
       };
     }
+    // 分页
     case UPDATE_PAGINATION: {
       const { pagination } = action.payload;
       return {
@@ -49,6 +52,7 @@ export default function(state = initialState, action) {
         pagination,
       };
     }
+    // 参数
     case UPDATE_FORM_PARAMS: {
       const { params } = action.payload;
       return {

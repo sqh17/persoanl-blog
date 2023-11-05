@@ -19,15 +19,18 @@ import {
   UPDATE_LOADING,
   UPDATE_PAGINATION,
 } from './redux/actionTypes';
-import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, remove } from '../../api/user';
 
 function Categories() {
-  const locale = useLocale();
   const dispatch = useDispatch();
-
+  const css: React.CSSProperties = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '200px',
+  };
   const columns = [
     {
       title: '昵称',
@@ -44,7 +47,7 @@ function Categories() {
     },
     {
       title: '来源',
-      width: 60,
+      width: 90,
       dataIndex: 'provider',
     },
     {
@@ -62,12 +65,11 @@ function Categories() {
 
     {
       title: '简介',
-      width: 400,
       dataIndex: 'introduction',
       render: (text) => {
         return (
           <Tooltip position="tl" content={text}>
-            {text}
+            <p style={css}>{text}</p>
           </Tooltip>
         );
       },
@@ -75,16 +77,17 @@ function Categories() {
     {
       title: '注册时间',
       dataIndex: 'registerTime',
+      width: 180,
     },
 
     {
-      title: locale['searchTable.columns.operations'],
+      title: '操作',
       dataIndex: 'operations',
       render: (_, record) => (
         <div className={styles.operations}>
           <Popconfirm title="Are you sure you want to delete?" onOk={() => onDelete(record)}>
             <Button type="text" status="danger" size="small">
-              {locale['searchTable.columns.operations.delete']}
+              删除
             </Button>
           </Popconfirm>
         </div>
@@ -99,7 +102,10 @@ function Categories() {
   useEffect(() => {
     fetchData();
   }, []);
-
+  // interface ListResponse {
+  //   list?: unknown[];
+  //   totalCount?: number;
+  // }
   async function fetchData(current = 1, pageSize = 20, params = {}) {
     dispatch({ type: UPDATE_LOADING, payload: { loading: true } });
     try {
@@ -108,14 +114,12 @@ function Categories() {
         pageSize,
         ...params,
       };
-      console.log(postData);
       const res: any = await getList(postData);
-      console.log(res);
       if (res) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
@@ -132,7 +136,7 @@ function Categories() {
     fetchData(1, pagination.pageSize, { nickName });
   }
 
-  const onDelete = async (row) => {
+  async function onDelete(row) {
     const res: any = await remove(row);
     if (res.code === 0) {
       Message.success(res.msg);
@@ -140,11 +144,11 @@ function Categories() {
     } else {
       Message.error('删除失败，请重试！');
     }
-  };
+  }
 
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
+      <Breadcrumb style={{ marginBottom: 12 }}>
         <Breadcrumb.Item>用户管理</Breadcrumb.Item>
       </Breadcrumb>
       <Card bordered={false}>
