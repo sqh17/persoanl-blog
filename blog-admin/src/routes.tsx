@@ -98,9 +98,9 @@ export const routes = [
       },
       {
         name: '侧栏配置',
-        key: 'right',
+        key: 'side',
         icon: <IconNav />,
-        componentPath: 'site/right',
+        componentPath: 'site/side',
       },
     ],
   },

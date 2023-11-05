@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Grid, Message, Select } from '@arco-design/web-react';
 import Save from '../../../../components/Save';
 import UploadImage from '../../../../components/UploadImage';
-import { queryAd, addAd, updateAd } from '../../../../api/site/right';
+import { queryAd, addAd, updateAd } from '../../../../api/site/side';
 import { showPositions } from '../../../../const';
 
 const Row = Grid.Row;
@@ -18,7 +18,6 @@ const Tab1 = () => {
       Message.success('刷新成功');
     }
     const data = res.data;
-    console.log(data);
     form.setFieldsValue(data);
     setTime(data.updateTime);
   };
@@ -34,7 +33,6 @@ const Tab1 = () => {
   const onSave = async () => {
     await form.validate();
     const values = await form.getFields();
-    console.log('values', values);
 
     const postData = values;
     postData.imgs = postData.imgs.map((item) => {
@@ -45,7 +43,6 @@ const Tab1 = () => {
       };
     });
 
-    console.log('postData', postData);
     const func = values._id ? updateAd : addAd;
     const res: any = await func(postData);
     if (res.data) {

@@ -9,12 +9,16 @@ exports.site = (config, env) => {
   config.context = path.resolve(__dirname, '..');
   config.entry = path.resolve(__dirname, '../src/index');
   config.output.path = path.resolve(__dirname, '../dist');
-
+  // config.resolve = {
+  //   alias: {
+  //     '@': path.resolve(__dirname, '../src')
+  //   }
+  // }
   config.plugins[0] = new HtmlWebpackPlugin({
     template: path.resolve(__dirname, '../public/index.html'),
   });
-  config.plugins.push(new ForkTsCheckerWebpackPlugin());
 
+  config.plugins.push(new ForkTsCheckerWebpackPlugin());
   config.resolve.modules = ['node_modules'];
   config.plugins.push(new DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),

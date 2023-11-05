@@ -50,7 +50,7 @@ export const showPositions = [
 export const showPositionsColorObj = {
   首页: 'blue',
   文章: '#87d068',
-  文章详情: 'volcano',
+  文章详情: 'pink',
   归档: '#f50',
   分类: 'gold',
   分类详情: 'lime',

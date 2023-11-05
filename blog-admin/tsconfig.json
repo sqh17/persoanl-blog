@@ -21,7 +21,7 @@
     "lib": ["es5", "dom"],
     "types": ["node", "jest"],
     "resolveJsonModule": true,
-    "downlevelIteration": true,
+    "downlevelIteration": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]

@@ -3,7 +3,7 @@ import Mock from 'mockjs';
 import setupMock from '../../../utils/setupMock';
 
 const data = {
-  tags: ['4年前端开发经验'],
+  tags: ['6年前端开发经验'],
   showPosition: ['文章', '文章详情'],
   createTime: 1598256829,
   updateTime: 1600164867,
@@ -25,7 +25,7 @@ const data = {
       icon: 'zhihu',
     },
   ],
-  nickName: 'NeverGiveUpT',
+  nickName: '十七十七',
   desc: '专注于WEB和移动前端开发',
 };
 
@@ -124,9 +124,7 @@ const recommendData = [
 ];
 setupMock({
   setup() {
-    Mock.mock(new RegExp('/api/v1/config/right/introduction'), (params) => {
-      console.log('---', params);
-
+    Mock.mock(new RegExp('/api/v1/config/side/introduction'), (params) => {
       switch (params.type) {
         case 'PUT':
           const body = JSON.parse(params.body);
@@ -151,9 +149,7 @@ setupMock({
           };
       }
     });
-    Mock.mock(new RegExp('/api/v1/config/right/ad'), (params) => {
-      console.log('---', params);
-
+    Mock.mock(new RegExp('/api/v1/config/side/ad'), (params) => {
       switch (params.type) {
         case 'PUT':
           const body = JSON.parse(params.body);
@@ -178,9 +174,7 @@ setupMock({
           };
       }
     });
-    Mock.mock(new RegExp('/api/v1/config/right/recommend'), (params) => {
-      console.log('---', params);
-
+    Mock.mock(new RegExp('/api/v1/config/side/recommend'), (params) => {
       switch (params.type) {
         case 'DELETE':
           const delBody = JSON.parse(params.body);

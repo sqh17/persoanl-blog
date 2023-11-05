@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Input, Form, Grid, Message, Select } from '@arco-design/web-react';
 import Save from '../../../../components/Save';
 import UploadImage from '../../../../components/UploadImage';
-import { queryIntroduction, addIntroduction, updateIntroduction } from '../../../../api/site/right';
+import { queryIntroduction, addIntroduction, updateIntroduction } from '../../../../api/site/side';
 import { getList } from '../../../../api/tags';
 import { showPositions } from '../../../../const';
 
@@ -20,7 +20,6 @@ const Tab0 = () => {
       Message.success('刷新成功');
     }
     const data = res.data;
-    console.log(data);
     form.setFieldsValue(data);
     setTime(data.updateTime);
   };
@@ -30,7 +29,7 @@ const Tab0 = () => {
       page: 1,
       pageSize: 9999,
     });
-    setTagsArr(res.data.list?.map((item) => item.name) || []);
+    setTagsArr(res.list?.map((item) => item.name) || []);
   };
   useEffect(() => {
     loadData();
@@ -44,7 +43,6 @@ const Tab0 = () => {
   const onSave = async () => {
     await form.validate();
     const values = await form.getFields();
-    console.log('values', values);
 
     const postData = values;
     postData.friendLink = postData.friendLink.map((item) => {
@@ -55,7 +53,6 @@ const Tab0 = () => {
       };
     });
 
-    console.log('postData', postData);
     const func = values._id ? updateIntroduction : addIntroduction;
     const res: any = await func(postData);
     if (res.data) {
@@ -71,7 +68,7 @@ const Tab0 = () => {
       <Save time={time} onRefresh={onRefresh} onSave={onSave} />
       <Form form={form}>
         <Row>
-          <Col span={12}>
+          <Col span={10}>
             <Form.Item
               label="昵称"
               field="nickName"
@@ -125,7 +122,7 @@ const Tab0 = () => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col span={14}>
             <Form.Item
               label="友情链接(1-4个)"
               field="friendLink"

@@ -11,7 +11,7 @@ import '../pages/user/mock';
 import '../pages/comment/mock';
 import '../pages/site/home/mock';
 import '../pages/site/headerFooter/mock';
-import '../pages/site/right/mock';
+import '../pages/site/side/mock';
 
 console.log('process', process.env.NODE_ENV);
 Mock.setup({

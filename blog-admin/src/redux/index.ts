@@ -6,7 +6,7 @@ import categories, { CategoriesState } from '../pages/categories/redux/reducer';
 import tags, { TagsState } from '../pages/tags/redux/reducer';
 import user, { UserState } from '../pages/user/redux/reducer';
 import comment, { CommentState } from '../pages/comment/redux/reducer';
-import recommend, { RecommendState } from '../pages/site/right/components/redux/reducer';
+import recommend, { RecommendState } from '../pages/site/side/components/redux/reducer';
 import articles, { ArticlesState } from '../pages/articles/redux/reducer';
 
 export interface ReducerState {
