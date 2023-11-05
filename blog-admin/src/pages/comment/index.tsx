@@ -12,6 +12,7 @@ import {
   Modal,
   Form,
   Radio,
+  Tooltip,
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -22,14 +23,12 @@ import {
   UPDATE_LOADING,
   UPDATE_PAGINATION,
 } from './redux/actionTypes';
-import useLocale from '../../utils/useLocale';
 import { ReducerState } from '../../redux';
 import styles from './style/index.module.less';
 import { getList, remove, updateCommentStatus } from '../../api/comment';
 import { auditStatusOptions } from '../../const';
 
 function Categories() {
-  const locale = useLocale();
   const dispatch = useDispatch();
   const [query, setQuery] = useState({
     articleTitle: '',
@@ -43,14 +42,22 @@ function Categories() {
   const handleAudit = (record) => {
     setVisible(true);
     setId(record._id);
+    if ([1, 2].includes(record.auditStatus * 1)) {
+      // 回显
+      form.setFieldValue('auditStatus', record.auditStatus * 1);
+    }
   };
-
+  const css: React.CSSProperties = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    minWidth: '180px',
+  };
   const columns: any = [
     {
       title: '文章标题',
       dataIndex: 'articleTitle',
       fixed: 'left',
-      width: 160,
     },
     {
       title: '昵称',
@@ -59,6 +66,13 @@ function Categories() {
     {
       title: '当前回复内容',
       dataIndex: 'currentReplayContent',
+      render: (text) => {
+        return (
+          <Tooltip position="tl" content={text}>
+            <p style={css}>{text}</p>
+          </Tooltip>
+        );
+      },
     },
     {
       title: '目标回复ID',
@@ -68,11 +82,19 @@ function Categories() {
     {
       title: '目标回复内容',
       dataIndex: 'targetReplayContent',
+      render: (text) => {
+        return (
+          <Tooltip position="tl" content={text}>
+            <p style={css}>{text}</p>
+          </Tooltip>
+        );
+      },
     },
 
     {
       title: '审核状态',
       dataIndex: 'auditStatus',
+      width: 100,
       render: (text) => {
         const current = auditStatusOptions.filter((item) => item.value === +text);
         const obj = current[0];
@@ -100,15 +122,15 @@ function Categories() {
     },
 
     {
-      title: locale['searchTable.columns.operations'],
+      title: '操作',
       dataIndex: 'operations',
       fixed: 'right',
-      width: 200,
+      width: 160,
       render: (_, record) => (
         <div className={styles.operations}>
-          <Popconfirm title="Are you sure you want to delete?" onOk={() => onDelete(record)}>
+          <Popconfirm title="确定要删除吗?" onOk={() => onDelete(record)}>
             <Button type="text" status="danger" size="small">
-              {locale['searchTable.columns.operations.delete']}
+              删除
             </Button>
           </Popconfirm>
 
@@ -136,14 +158,12 @@ function Categories() {
         pageSize,
         ...params,
       };
-      console.log(postData);
       const res: any = await getList(postData);
-      console.log(res);
       if (res) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
@@ -170,7 +190,7 @@ function Categories() {
     });
   }
 
-  const onDelete = async (row) => {
+  async function onDelete(row) {
     const res: any = await remove(row);
     if (res.code === 0) {
       Message.success(res.msg);
@@ -178,7 +198,7 @@ function Categories() {
     } else {
       Message.error('删除失败，请重试！');
     }
-  };
+  }
 
   const onCancel = () => {
     setVisible(false);
@@ -191,13 +211,10 @@ function Categories() {
     await form.validate();
     setConfirmLoading(true);
     const values = await form.getFields();
-    console.log(values);
     const postData = {
       id,
       ...values,
     };
-    console.log('postData', postData);
-
     const res: any = await updateCommentStatus(postData);
     if (res.code === 0) {
       Message.success(res.msg);
@@ -250,7 +267,7 @@ function Categories() {
         />
 
         <Modal
-          title="审核"
+          title="审核状态"
           visible={visible}
           onOk={onOk}
           confirmLoading={confirmLoading}

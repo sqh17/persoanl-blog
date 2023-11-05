@@ -6,8 +6,10 @@ const data = {
   list: [
     {
       targetReplayId: '',
-      targetReplayContent: '',
-      currentReplayContent: '好，不错',
+      targetReplayContent:
+        '好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错',
+      currentReplayContent:
+        '好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错好，不错',
       commentTime: 1611745373,
       auditTime: 1637558682,
       auditStatus: '2',
@@ -80,8 +82,6 @@ const data = {
 setupMock({
   setup() {
     Mock.mock(new RegExp('/api/v1/comment'), (params) => {
-      console.log('---', params);
-
       switch (params.type) {
         case 'DELETE':
           const delBody = JSON.parse(params.body);
