@@ -7,16 +7,16 @@ const data = {
   updateTime: 1619316747,
   _id: '5f4373e094c942f8bc6daa6a',
   header: {
-    openSearch: true,
+    openSearch: false,
     login: true,
     register: true,
     _id: '5f4373e094c942f8bc6daa6b',
     logo: '',
-    title: 'NeverGiveUpT',
+    title: '拾柒十七',
   },
   footer: {
     _id: '5f4373e094c942f8bc6daa72',
-    copyright: 'Copyright © 2020 NeverGiveUpT・蜀ICP备2020026338号',
+    copyright: 'Copyright © 2023 xxxxxxxxxx',
     extra: '本系统由Vue+Muse-UI提供技术支持',
   },
 };
@@ -24,8 +24,6 @@ const data = {
 setupMock({
   setup() {
     Mock.mock(new RegExp('/api/v1/config/hf'), (params) => {
-      console.log('---', params);
-
       switch (params.type) {
         case 'PUT':
           const body = JSON.parse(params.body);

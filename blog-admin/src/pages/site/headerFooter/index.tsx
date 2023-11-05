@@ -19,7 +19,9 @@ const Col = Grid.Col;
 
 const HeaderFooter = () => {
   const [form] = Form.useForm();
+  // logo 是选择文本还是图片
   const [type, setType] = useState(0);
+  // 底部的刷新时间
   const [time, setTime] = useState();
 
   const loadData = async (isRefresh?: boolean) => {
@@ -28,7 +30,6 @@ const HeaderFooter = () => {
       Message.success('刷新成功');
     }
     const data = res.data;
-    console.log(data);
 
     if (!data) {
       form.setFieldsValue({
@@ -52,10 +53,7 @@ const HeaderFooter = () => {
         ],
       });
     } else {
-      console.log('---+++++', data);
-
       setType(2);
-
       form.setFieldsValue({ ...data, type: 2 });
     }
 
@@ -72,14 +70,11 @@ const HeaderFooter = () => {
   const onSave = async () => {
     await form.validate();
     const values = await form.getFields();
-    console.log('values', values);
-
     const postData = values;
     if (type === 1) {
       postData.header.logo = postData.header.logo[0].imgUrl;
     }
 
-    console.log('postData', postData);
     const func = values._id ? updateHeaderFooter : addHeaderFooter;
     const res: any = await func(postData);
     if (res.data) {
@@ -98,12 +93,12 @@ const HeaderFooter = () => {
       <Save time={time} onRefresh={onRefresh} onSave={onSave} />
 
       <div className={styles.container}>
-        <Breadcrumb style={{ marginBottom: 20 }}>
+        <Breadcrumb style={{ marginBottom: 12 }}>
           <Breadcrumb.Item>Header/Footer配置</Breadcrumb.Item>
         </Breadcrumb>
         <Form form={form}>
-          <Card hoverable title="Header配置">
-            <Row>
+          <Card className={styles.card} hoverable title="Header配置" bordered={false}>
+            <Row className={styles['br-4']}>
               <Col span={12}>
                 <Form.Item
                   label="是否开启搜索"
@@ -170,7 +165,13 @@ const HeaderFooter = () => {
               </Col>
             </Row>
           </Card>
-          <Card style={{ marginTop: 20 }} hoverable title="Footer配置">
+          <Card
+            className={styles.card}
+            style={{ marginTop: 24 }}
+            bordered={false}
+            hoverable
+            title="Footer配置"
+          >
             <Form.Item
               labelCol={{ span: 2 }}
               label="Copyright"
