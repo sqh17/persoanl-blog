@@ -57,6 +57,7 @@ setupMock({
     Mock.mock(new RegExp('/api/v1/articles/edit'), (params) => {
       switch (params.type) {
         case 'GET':
+        default:
           const { id } = qs.parseUrl(params.url).query;
           const detailData = data.list.filter((item) => item._id === id);
           return {
@@ -69,9 +70,8 @@ setupMock({
     Mock.mock(new RegExp('/api/v1/articles/collectStatus'), (params) => {
       switch (params.type) {
         case 'PUT':
+        default:
           const body = JSON.parse(params.body);
-          console.log('body', body); // isCollect
-
           data.list.map((item) => {
             item.isCollect = body.isCollect;
             return item;
@@ -87,9 +87,8 @@ setupMock({
     Mock.mock(new RegExp('/api/v1/articles/status'), (params) => {
       switch (params.type) {
         case 'PUT':
+        default:
           const body = JSON.parse(params.body);
-          console.log('body', body);
-
           const index = data.list.findIndex((item) => item._id === body.id);
           data.list[index] = { ...data.list[index], ...body };
           return {
@@ -103,9 +102,8 @@ setupMock({
     Mock.mock(new RegExp('/api/v1/articles/publishStatus'), (params) => {
       switch (params.type) {
         case 'PUT':
+        default:
           const body = JSON.parse(params.body);
-          console.log('body', body);
-
           const index = data.list.findIndex((item) => item._id === body.id);
           data.list[index] = { ...data.list[index], ...body };
           return {
@@ -116,8 +114,6 @@ setupMock({
       }
     });
     Mock.mock(new RegExp('/api/v1/articles'), (params) => {
-      console.log('---', params);
-
       switch (params.type) {
         case 'DELETE':
           const delBody = JSON.parse(params.body);

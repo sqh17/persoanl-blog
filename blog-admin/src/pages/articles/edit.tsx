@@ -71,7 +71,6 @@ const Edit = () => {
     const data = res.data;
 
     if (!data) return;
-    console.log('data', data);
     data.cover = [
       {
         imgUrl: data.cover,
@@ -86,7 +85,7 @@ const Edit = () => {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.data.list?.map((item) => {
+    const list = res.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;
@@ -99,7 +98,7 @@ const Edit = () => {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.data.list?.map((item) => {
+    const list = res.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;
@@ -170,7 +169,7 @@ const Edit = () => {
       />
 
       <div className={styles.container}>
-        <Breadcrumb style={{ marginBottom: 20 }}>
+        <Breadcrumb style={{ marginBottom: 12 }}>
           <Breadcrumb.Item>编辑文章</Breadcrumb.Item>
         </Breadcrumb>
         <Card hoverable>
@@ -257,7 +256,7 @@ const Edit = () => {
               </Col>
               <Col span={11} offset={1}>
                 <Row>
-                  <Col span={8}>
+                  <Col span={6}>
                     <Form.Item
                       {...formItemLayout2}
                       label="评论"
@@ -291,7 +290,7 @@ const Edit = () => {
                       <Switch />
                     </Form.Item>
                   </Col>
-                  <Col span={8}>
+                  <Col span={10}>
                     <Form.Item
                       {...formItemLayout2}
                       label="查看数量"

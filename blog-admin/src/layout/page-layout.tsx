@@ -56,6 +56,7 @@ function renderRoutes(locale) {
         if (level > 1) {
           return <MenuItem key={route.key}>{titleDom}</MenuItem>;
         }
+        // 自定义属性，代表是否渲染
         if (!route.hide) {
           nodes.push(
             <MenuItem key={route.key}>

@@ -46,6 +46,7 @@ export const routes = [
     key: 'articles/edit',
     icon: <IconBook />,
     componentPath: 'articles/edit',
+    // 自定义属性
     hide: true,
   },
   {

@@ -54,7 +54,7 @@ function Articles() {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.data.list?.map((item) => {
+    const list = res?.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;
@@ -67,7 +67,7 @@ function Articles() {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.data.list?.map((item) => {
+    const list = res?.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;
@@ -114,12 +114,13 @@ function Articles() {
       Message.error('文章状态修改失败，请重试！');
     }
   };
-  const columns = [
+  const columns: any = [
     {
       title: '文章标题',
       dataIndex: 'title',
+      fixed: 'left',
+      width: 200,
     },
-
     {
       title: '封面',
       dataIndex: 'cover',
@@ -139,32 +140,63 @@ function Articles() {
       title: '分类',
       dataIndex: 'categories',
     },
+    // {
+    //   title: '标签',
+    //   dataIndex: 'tags',
+    //   width: 140,
+    //   render: (_, record) => {
+    //     // const result = [];
+    //     // for (let i = 0; i < record.tags.length; i += 3) {
+    //     //   result.push(record.tags.slice(i, i + 3)); // i=0 0-3 i=3 3-6
+    //     // }
+    //     // return result.map((item, index) => {
+    //     //   return (
+    //     //     <div style={{ marginBottom: 10 }} key={index}>
+    //     //       {item.map((sub) => (
+    //     //         <Tag style={{ marginRight: 10 }} key={sub}>
+    //     //           {sub}
+    //     //         </Tag>
+    //     //       ))}
+    //     //     </div>
+    //     //   );
+
+    //     // });
+    //     const result = record.tags || [];
+    //     return result.map((item, index) => {
+    //       return (
+    //         <div style={{ marginBottom: 10 }} key={index}>
+    //           <Tag style={{ marginRight: 10 }}>{item}</Tag>
+    //         </div>
+    //       );
+    //     });
+    //   },
+    // },
     {
-      title: '标签',
-      dataIndex: 'tags',
+      title: '查看',
+      dataIndex: 'views',
       render: (_, record) => {
-        const result = [];
-        for (let i = 0; i < record.tags.length; i += 3) {
-          result.push(record.tags.slice(i, i + 3)); // i=0 0-3 i=3 3-6
-        }
-        return result.map((item, index) => {
-          return (
-            <div style={{ marginBottom: 10 }} key={index}>
-              {item.map((sub) => (
-                <Tag style={{ marginRight: 10 }} key={sub}>
-                  {sub}
-                </Tag>
-              ))}
-            </div>
-          );
-        });
+        return `${record.views}`;
       },
     },
     {
-      title: '查看/评论/点赞/收藏	',
-      dataIndex: 'views',
+      title: '评论',
+      dataIndex: 'comment',
       render: (_, record) => {
-        return `${record.views}/${record.comment}/${record.like}/${record.collect}`;
+        return `${record.comment}`;
+      },
+    },
+    {
+      title: '点赞',
+      dataIndex: 'like',
+      render: (_, record) => {
+        return `${record.like}`;
+      },
+    },
+    {
+      title: '收藏',
+      dataIndex: 'collect',
+      render: (_, record) => {
+        return `${record.collect}`;
       },
     },
     {
@@ -200,6 +232,7 @@ function Articles() {
     {
       title: '创建时间',
       dataIndex: 'createTime',
+      width: 180,
       render: (_, record) => {
         return dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss');
       },
@@ -207,6 +240,7 @@ function Articles() {
     {
       title: '修改时间',
       dataIndex: 'updateTime',
+      width: 180,
       render: (_, record) => {
         return record.updateTime
           ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
@@ -217,6 +251,8 @@ function Articles() {
     {
       title: '操作',
       dataIndex: 'operations',
+      fixed: 'right',
+      width: 300,
       render: (_, record) => (
         <div className={styles.operations}>
           <Button onClick={() => onChangePublishStatus(record)} type="text" size="small">
@@ -230,7 +266,7 @@ function Articles() {
               <Button onClick={() => onUpdate(record)} type="text" size="small">
                 修改
               </Button>
-              <Popconfirm title="Are you sure you want to delete?" onOk={() => onDelete(record)}>
+              <Popconfirm title="确定要删除吗？" onOk={() => onDelete(record)}>
                 <Button type="text" status="danger" size="small">
                   删除
                 </Button>
@@ -258,14 +294,12 @@ function Articles() {
         pageSize,
         ...params,
       };
-      console.log(postData);
       const res: any = await getList(postData);
-      console.log(res);
       if (res) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
@@ -300,7 +334,6 @@ function Articles() {
       postData.updateEndTime = dayjs(postData.updateTime[1]).unix();
       delete postData.updateTime;
     }
-    console.log('postData', postData);
 
     fetchData(1, pagination.pageSize, postData);
   };
@@ -309,11 +342,11 @@ function Articles() {
     history.push(`/articles/edit`);
   };
 
-  const onUpdate = (row) => {
+  function onUpdate(row) {
     history.push(`/articles/edit?id=${row._id}`);
-  };
+  }
 
-  const onDelete = async (row) => {
+  async function onDelete(row) {
     const res: any = await remove({
       id: row._id,
     });
@@ -323,7 +356,7 @@ function Articles() {
     } else {
       Message.error('删除失败，请重试！');
     }
-  };
+  }
 
   const handleUpdateCollectStatus = async (isCollect) => {
     const res: any = await updateCollectStatus({
@@ -348,7 +381,7 @@ function Articles() {
 
   return (
     <div className={styles.container}>
-      <Breadcrumb style={{ marginBottom: 20 }}>
+      <Breadcrumb style={{ marginBottom: 12 }}>
         <Breadcrumb.Item>文章管理</Breadcrumb.Item>
       </Breadcrumb>
       <Card bordered={false}>
@@ -479,6 +512,9 @@ function Articles() {
           pagination={pagination}
           columns={columns}
           data={data}
+          scroll={{
+            x: 2200,
+          }}
         />
       </Card>
     </div>
