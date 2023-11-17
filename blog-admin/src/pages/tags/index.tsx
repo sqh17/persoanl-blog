@@ -136,10 +136,10 @@ function Tags() {
       };
       const res: any = await getList(postData);
       if (res.code === 0) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
