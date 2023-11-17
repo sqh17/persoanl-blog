@@ -18,4 +18,6 @@ module.exports = app => {
   router.put(baseRouter + '/tags/status/:id', jwt, controller.tags.statusUpdate);
 
   router.resources('categories', baseRouter + '/categories', jwt, controller.categories); // 分类
+
+  router.resources('about', baseRouter + '/about', jwt, controller.about); // 关于
 };
