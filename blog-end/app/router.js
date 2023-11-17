@@ -14,6 +14,8 @@ module.exports = app => {
   // router.delete('/admin/remove/:id', controller.admin.remove);
   // router.delete('/admin/removeAll', controller.admin.removeAll);
 
-  router.resources('tags', baseRouter + '/tags', jwt, controller.tags);
+  router.resources('tags', baseRouter + '/tags', jwt, controller.tags); // 标签
   router.put(baseRouter + '/tags/status/:id', jwt, controller.tags.statusUpdate);
+
+  router.resources('categories', baseRouter + '/categories', jwt, controller.categories); // 分类
 };

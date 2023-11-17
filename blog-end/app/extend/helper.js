@@ -53,13 +53,12 @@ module.exports = {
   /**
    * 过滤空值
    * @param {Object} params 愿对象
-   * @param {Array} keys 白名单
    * @return {Object} 新对象
    */
-  filterEmptyField(params, keys) {
+  filterEmptyField(params) {
     const newParams = {};
     Object.keys(params).forEach(item => {
-      if (keys.includes(item) && params[item] !== '') {
+      if (params[item] !== undefined && params[item] !== '') {
         newParams[item] = params[item];
       }
     });

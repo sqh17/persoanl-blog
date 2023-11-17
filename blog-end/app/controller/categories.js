@@ -1,6 +1,6 @@
 const { Controller } = require('egg');
 
-class TagsController extends Controller {
+class CategoriesController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.createRule = {
@@ -38,9 +38,8 @@ class TagsController extends Controller {
   async index() {
     const { ctx, service } = this;
     const body = ctx.request.query;
-    console.log('body====', body);
     ctx.validate(this.queryListParamsRules, body);
-    const res = await service.tags.index(body);
+    const res = await service.categories.index(body);
     ctx.helper.success({ ctx, res });
   }
   // 创建
@@ -48,7 +47,7 @@ class TagsController extends Controller {
     const { ctx, service } = this;
     const body = ctx.request.body;
     ctx.validate(this.createRule, body);
-    const res = await service.tags.create(body);
+    const res = await service.categories.create(body);
     ctx.helper.success({ ctx, res });
   }
   // 更新
@@ -57,24 +56,16 @@ class TagsController extends Controller {
     const id = ctx.params.id;
     const params = ctx.request.body;
     ctx.validate(this.createRule, params);
-    const res = await service.tags.update({ id, ...params });
+    const res = await service.categories.update({ id, ...params });
     ctx.helper.success({ ctx, res });
   }
   // 删除
   async destroy() {
     const { ctx, service } = this;
     const params = ctx.params;
-    const res = await service.tags.destroy(params);
-    ctx.helper.success({ ctx, res });
-  }
-  // 标签状态
-  async statusUpdate() {
-    const { ctx, service } = this;
-    const id = ctx.params.id;
-    const params = ctx.request.body;
-    const res = await service.tags.statusUpdate({ id, ...params });
+    const res = await service.categories.destroy(params);
     ctx.helper.success({ ctx, res });
   }
 }
 
-module.exports = TagsController;
+module.exports = CategoriesController;

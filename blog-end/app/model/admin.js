@@ -23,7 +23,7 @@ module.exports = app => {
     userName: app.config.userName,
     password: app.config.password,
   };
-  console.log('===========', app.config);
+  // console.log('===========', app.config);
   helper.genSaltPassword(adminUser.password).then(async hash => {
     adminUser.password = hash;
     const oldUser = await AdminModel.find({ userName: adminUser.userName });
