@@ -4,7 +4,7 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
+  const { router, controller, jwt } = app;
   const baseRouter = app.config.baseRouter;
   // router.post('/admin/login', controller.admin.login);
   // router.get('/admin/a', controller.admin.a);
@@ -14,6 +14,6 @@ module.exports = app => {
   // router.delete('/admin/remove/:id', controller.admin.remove);
   // router.delete('/admin/removeAll', controller.admin.removeAll);
 
-  router.resources('tags', baseRouter + '/tags', controller.tags);
-  router.put(baseRouter + '/tags/status/:id', controller.tags.statusUpdate);
+  router.resources('tags', baseRouter + '/tags', jwt, controller.tags);
+  router.put(baseRouter + '/tags/status/:id', jwt, controller.tags.statusUpdate);
 };

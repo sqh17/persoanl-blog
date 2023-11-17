@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1698739582998_5785';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = [ 'auth' ];
 
   config.view = {
     defaultViewEngine: 'nunjucks',
@@ -36,6 +36,9 @@ module.exports = appInfo => {
 
   config.jwt = {
     secret: userConfig.userName,
+  };
+  config.auth = {
+    whiteList: [ userConfig.userName ],
   };
   return {
     ...config,
