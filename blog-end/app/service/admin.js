@@ -4,7 +4,8 @@ class AdminService extends Service {
   async adminLogin(params) {
     const { ctx, app } = this;
     const oldUser = await ctx.model.Admin.findOne({ userName: params.userName });
-    // const res = await ctx.model.Admin.create(body);
+    // const res = await ctx.model.Admin.create(params);
+    // console.log('res----',res)
     if (!oldUser) {
       return {
         msg: '用户不存在',

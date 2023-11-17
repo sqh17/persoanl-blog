@@ -21,7 +21,7 @@ exports.site = (config, env) => {
   config.plugins.push(new ForkTsCheckerWebpackPlugin());
   config.resolve.modules = ['node_modules'];
   config.plugins.push(new DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('development'),
+    'process.env.NODE_ENV': JSON.stringify('linking'),
   }))
   config.plugins.push(
     new ArcoDesignWebpackPlugin({

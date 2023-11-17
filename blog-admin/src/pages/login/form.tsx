@@ -34,7 +34,6 @@ export default function LoginForm() {
     setLoading(true);
     try {
       const res = await adminLogin(params);
-      console.log(res);
       if (res.data) {
         if ((res as any).code === 0) {
           afterLoginSuccess(res.data);
@@ -83,6 +82,9 @@ export default function LoginForm() {
             prefix={<IconUser />}
             placeholder={locale['login.p_userName']}
             onPressEnter={onSubmitClick}
+            onInput={() => {
+              setErrorMessage('');
+            }}
           />
         </Form.Item>
         <Form.Item
@@ -99,6 +101,9 @@ export default function LoginForm() {
             prefix={<IconLock />}
             placeholder={locale['login.p_password']}
             onPressEnter={onSubmitClick}
+            onInput={() => {
+              setErrorMessage('');
+            }}
           />
         </Form.Item>
         <Space size={16} direction="vertical">

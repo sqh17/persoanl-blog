@@ -10,7 +10,6 @@ import {
   Select,
   Badge,
   Avatar,
-  Tag,
   Breadcrumb,
   Switch,
   DatePicker,
