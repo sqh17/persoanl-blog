@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1698739582998_5785';
 
   // add your middleware config here
-  config.middleware = [ 'auth' ];
+  config.middleware = [ 'auth', 'errorHandler' ];
 
   config.view = {
     defaultViewEngine: 'nunjucks',
