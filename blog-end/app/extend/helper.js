@@ -52,9 +52,9 @@ module.exports = {
   },
   /**
    * 过滤空值
-   * @param {Object} params
-   * @param {Array} keys
-   * @return {Object}
+   * @param {Object} params 愿对象
+   * @param {Array} keys 白名单
+   * @return {Object} 新对象
    */
   filterEmptyField(params, keys) {
     const newParams = {};

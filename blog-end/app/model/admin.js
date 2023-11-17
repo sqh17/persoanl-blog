@@ -20,9 +20,10 @@ module.exports = app => {
   const AdminModel = mongoose.model('Admin', AdminSchema);
 
   const adminUser = {
-    userName: 'admin',
-    password: '123456',
+    userName: app.config.userName,
+    password: app.config.password,
   };
+  console.log('===========', app.config);
   helper.genSaltPassword(adminUser.password).then(async hash => {
     adminUser.password = hash;
     const oldUser = await AdminModel.find({ userName: adminUser.userName });
