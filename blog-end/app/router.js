@@ -20,4 +20,6 @@ module.exports = app => {
   router.resources('categories', baseRouter + '/categories', jwt, controller.categories); // 分类
 
   router.resources('about', baseRouter + '/about', jwt, controller.about); // 关于
+
+  router.resources('user', baseRouter + '/user', jwt, controller.user); // 用户
 };

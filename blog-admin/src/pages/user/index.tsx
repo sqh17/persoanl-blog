@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from '@arco-design/web-react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import dayjs from 'dayjs';
 import {
   UPDATE_FORM_PARAMS,
   UPDATE_LIST,
@@ -78,6 +78,11 @@ function Categories() {
       title: '注册时间',
       dataIndex: 'registerTime',
       width: 180,
+      render: (record) => {
+        return record.registerTime
+          ? dayjs(new Date(record.registerTime)).format('YYYY-MM-DD HH:mm:ss')
+          : '-';
+      },
     },
 
     {
@@ -116,10 +121,10 @@ function Categories() {
       };
       const res: any = await getList(postData);
       if (res) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
