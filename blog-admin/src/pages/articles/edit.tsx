@@ -85,7 +85,7 @@ const Edit = () => {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.list?.map((item) => {
+    const list = res.data.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;
@@ -98,7 +98,7 @@ const Edit = () => {
       page: 1,
       pageSize: 9999,
     });
-    const list = res.list?.map((item) => {
+    const list = res.data.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;

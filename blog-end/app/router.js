@@ -17,6 +17,11 @@ module.exports = app => {
   router.resources('tags', baseRouter + '/tags', jwt, controller.tags); // 标签
   router.put(baseRouter + '/tags/status/:id', jwt, controller.tags.statusUpdate);
 
+  router.resources('articles', baseRouter + '/articles', jwt, controller.articles); // 文章
+  router.put(baseRouter + '/articles/status/:id', jwt, controller.articles.changeStatus); // 启用，停用
+  router.put(baseRouter + '/articles/publishStatus/:id', jwt, controller.articles.changePublishStatus); // 修改发布状态
+  router.post(baseRouter + '/articles/collectStatus', jwt, controller.articles.changeCollectStatus); // 一键开启或关闭收藏
+
   router.resources('categories', baseRouter + '/categories', jwt, controller.categories); // 分类
 
   router.resources('about', baseRouter + '/about', jwt, controller.about); // 关于

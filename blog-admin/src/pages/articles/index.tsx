@@ -53,7 +53,7 @@ function Articles() {
       page: 1,
       pageSize: 9999,
     });
-    const list = res?.list?.map((item) => {
+    const list = res?.data.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;
@@ -66,7 +66,7 @@ function Articles() {
       page: 1,
       pageSize: 9999,
     });
-    const list = res?.list?.map((item) => {
+    const list = res?.data.list?.map((item) => {
       item.key = item._id;
       item.value = item.name;
       return item;
@@ -233,7 +233,7 @@ function Articles() {
       dataIndex: 'createTime',
       width: 180,
       render: (_, record) => {
-        return dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss');
       },
     },
     {
@@ -241,9 +241,7 @@ function Articles() {
       dataIndex: 'updateTime',
       width: 180,
       render: (_, record) => {
-        return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
+        return record.updateTime ? dayjs(record.updateTime).format('YYYY-MM-DD HH:mm:ss') : '-';
       },
     },
 
@@ -295,10 +293,10 @@ function Articles() {
       };
       const res: any = await getList(postData);
       if (res) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
