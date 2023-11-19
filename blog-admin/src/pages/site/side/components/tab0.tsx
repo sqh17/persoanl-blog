@@ -29,7 +29,7 @@ const Tab0 = () => {
       page: 1,
       pageSize: 9999,
     });
-    setTagsArr(res.list?.map((item) => item.name) || []);
+    setTagsArr(res.data.list?.map((item) => item.name) || []);
   };
   useEffect(() => {
     loadData();

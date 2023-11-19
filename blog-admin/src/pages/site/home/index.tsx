@@ -11,7 +11,7 @@ const Col = Grid.Col;
 const About = () => {
   const [form] = Form.useForm();
   const [resetLength, setResetLength] = useState(800);
-  const [showTip, setShowTip] = useState(true);
+  const [showTip, setShowTip] = useState(false);
   const [time, setTime] = useState();
 
   const loadData = async (isRefresh?: boolean) => {

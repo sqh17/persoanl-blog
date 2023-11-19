@@ -22,4 +22,11 @@ module.exports = app => {
   router.resources('about', baseRouter + '/about', jwt, controller.about); // 关于
 
   router.resources('user', baseRouter + '/user', jwt, controller.user); // 用户
+
+  router.resources('home', baseRouter + '/config/home', jwt, controller.config.home); // 配置管理-首页
+  router.resources('hf', baseRouter + '/config/hf', jwt, controller.config.hf); // 配置管理-头部/尾部
+
+  router.resources('side_introduction', baseRouter + '/config/side/introduction', jwt, controller.config.side.introduction); // 配置管理-侧栏配置-个人简介
+  router.resources('side_ad', baseRouter + '/config/side/ad', jwt, controller.config.side.ad); // 配置管理-侧栏配置-广告
+  router.resources('side_recommend', baseRouter + '/config/side/recommend', jwt, controller.config.side.recommend); // 配置管理-侧栏配置-推荐
 };

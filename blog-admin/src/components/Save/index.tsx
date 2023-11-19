@@ -9,9 +9,7 @@ import { ReducerState } from '../../redux';
 
 const Save = (props) => {
   const { time, showBack, onRefresh, onSave, onBack, onPublish } = props;
-  const message = time
-    ? `上次保存时间：${dayjs(time * 1000).format('YYYY-MM-DD HH:mm:ss')}`
-    : '暂无操作';
+  const message = time ? `上次保存时间：${dayjs(time).format('YYYY-MM-DD HH:mm:ss')}` : '暂无操作';
   // 当没有声明onback函数时直接使用默认
   const goBack = () => {
     history.goBack();

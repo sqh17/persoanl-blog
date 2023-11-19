@@ -64,10 +64,10 @@ function Tab3() {
       };
       const res: any = await getListRecommend(postData);
       if (res) {
-        dispatch({ type: UPDATE_LIST, payload: { data: res.list } });
+        dispatch({ type: UPDATE_LIST, payload: { data: res.data.list } });
         dispatch({
           type: UPDATE_PAGINATION,
-          payload: { pagination: { ...pagination, current, pageSize, total: res.totalCount } },
+          payload: { pagination: { ...pagination, current, pageSize, total: res.data.totalCount } },
         });
         dispatch({ type: UPDATE_LOADING, payload: { loading: false } });
         dispatch({ type: UPDATE_FORM_PARAMS, payload: { params } });
@@ -235,16 +235,14 @@ function Tab3() {
       title: '创建时间',
       dataIndex: 'createTime',
       render: (_, record) => {
-        return dayjs(record.createTime * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss');
       },
     },
     {
       title: '修改时间',
       dataIndex: 'updateTime',
       render: (_, record) => {
-        return record.updateTime
-          ? dayjs(record.updateTime * 1000).format('YYYY-MM-DD HH:mm:ss')
-          : '-';
+        return record.updateTime ? dayjs(record.updateTime).format('YYYY-MM-DD HH:mm:ss') : '-';
       },
     },
 
