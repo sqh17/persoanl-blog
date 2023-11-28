@@ -16,8 +16,8 @@ export async function remove(data) {
 }
 export async function updateCommentStatus(data) {
   return request({
-    url: '/comment',
-    method: 'put',
+    url: '/comment/commentStatus',
+    method: 'post',
     data,
   });
 }

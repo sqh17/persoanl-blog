@@ -22,6 +22,9 @@ module.exports = app => {
   router.put(baseRouter + '/articles/publishStatus/:id', jwt, controller.articles.changePublishStatus); // 修改发布状态
   router.post(baseRouter + '/articles/collectStatus', jwt, controller.articles.changeCollectStatus); // 一键开启或关闭收藏
 
+  router.resources('comment', baseRouter + '/comment', jwt, controller.comment); // 评论管理
+  router.post(baseRouter + '/comment/commentStatus', jwt, controller.comment.changeCommentStatus); // 一键审核评论
+
   router.resources('categories', baseRouter + '/categories', jwt, controller.categories); // 分类
 
   router.resources('about', baseRouter + '/about', jwt, controller.about); // 关于
