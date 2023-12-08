@@ -14,7 +14,9 @@
     "egg-scripts": "^2",
     "egg-validate": "^2.0.2",
     "egg-view-nunjucks": "^2.3.0",
-    "moment": "^2.29.4"
+    "md5": "^2.3.0",
+    "moment": "^2.29.4",
+    "qiniu": "^7.10.1"
   },
   "devDependencies": {
     "egg-bin": "^5",

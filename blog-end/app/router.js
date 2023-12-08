@@ -37,4 +37,11 @@ module.exports = app => {
   router.resources('side_introduction', baseRouter + '/config/side/introduction', jwt, controller.config.side.introduction); // 配置管理-侧栏配置-个人简介
   router.resources('side_ad', baseRouter + '/config/side/ad', jwt, controller.config.side.ad); // 配置管理-侧栏配置-广告
   router.resources('side_recommend', baseRouter + '/config/side/recommend', jwt, controller.config.side.recommend); // 配置管理-侧栏配置-推荐
+
+  router.post(
+    baseRouter + '/upload',
+    jwt,
+    controller.utils.uploadFiles
+  ); // 上传文件到七牛云
+
 };
