@@ -3,7 +3,7 @@ import { Notification } from '@arco-design/web-react';
 
 export const request = (config) => {
   const http = axios.create({
-    baseURL: '/api/v1',
+    baseURL: '/end/api/v1',
     // timeout: 5000,
   });
 

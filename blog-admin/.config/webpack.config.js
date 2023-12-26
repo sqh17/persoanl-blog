@@ -30,9 +30,9 @@ exports.site = (config, env) => {
       },
     })
   );
-  config.devServer = {
-    proxy: {
-      '/api/v1': 'http://127.0.0.1:7001',
-    },
-  };
+  // config.devServer = {
+  //   proxy: {
+  //     '/api/v1': 'http://101.42.222.203:7001',
+  //   },
+  // };
 };

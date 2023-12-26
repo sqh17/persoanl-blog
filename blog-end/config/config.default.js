@@ -30,7 +30,7 @@ module.exports = appInfo => {
   };
   // mongoose
   config.mongoose = {
-    url: 'mongodb://127.0.0.1/blog',
+    url: 'mongodb://101.42.222.203:27017/blog',
     options: {},
   };
 
